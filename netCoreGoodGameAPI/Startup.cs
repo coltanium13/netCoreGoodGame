@@ -27,7 +27,16 @@ namespace netCoreGoodGameAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-services.AddDbContext<GoodGameContext>(opt =>
+
+            services.AddCors(options =>
+                options.AddPolicy("MyPolicy",
+                builder => {
+                builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                }
+            )
+        );
+
+            services.AddDbContext<GoodGameContext>(opt =>
                opt.UseInMemoryDatabase("GoodGameDB"));
 
             services.AddControllers();
@@ -42,6 +51,8 @@ services.AddDbContext<GoodGameContext>(opt =>
             }
 
             app.UseHttpsRedirection();
+            
+            app.UseCors("MyPolicy");
 
             app.UseRouting();
 
