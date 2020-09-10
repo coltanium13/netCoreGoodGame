@@ -1,23 +1,24 @@
-import React, { Fragment, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Navbar from './components/layout/Navbar';
-import Landing from './components/layout/Landing';
-import Routes from './components/routing/Routes';
-import { LOGOUT } from './actions/types';
+import React, { Fragment, useEffect } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Navbar from "./components/layout/Navbar";
+import Landing from "./components/layout/Landing";
+import Routes from "./components/routing/Routes";
+import { LOGOUT } from "./actions/types";
 
 // Redux
-import { Provider } from 'react-redux';
-import store from './store';
-import { loadUser } from './actions/auth';
-import setAuthToken from './utils/setAuthToken';
+import { Provider } from "react-redux";
+import store from "./store";
+import { loadUser } from "./actions/auth";
+import setAuthToken from "./utils/setAuthToken";
 
-import './App.css';
+import "./App.css";
 
 //TODO: use redux hooks
 
 const App = () => {
   useEffect(() => {
-    console.log('In App.js UE');
+    //TODO: try to make a call to backend
+    console.log("In App.js UE");
     // check for token in LS and load user
     if (localStorage.token) {
       setAuthToken(localStorage.token);
@@ -25,7 +26,7 @@ const App = () => {
     }
 
     // log user out from all tabs if they log out in one tab
-    window.addEventListener('storage', () => {
+    window.addEventListener("storage", () => {
       if (!localStorage.token) store.dispatch({ type: LOGOUT });
     });
   }, []);
