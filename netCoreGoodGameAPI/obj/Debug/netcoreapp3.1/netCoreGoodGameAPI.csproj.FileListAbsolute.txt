@@ -131,3 +131,4 @@
 /Users/colton/Documents/repos/netCoreGoodGame/netCoreGoodGameAPI/bin/Debug/netcoreapp3.1/runtimes/win/lib/netcoreapp2.0/System.Runtime.Caching.dll
 /Users/colton/Documents/repos/netCoreGoodGame/netCoreGoodGameAPI/bin/Debug/netcoreapp3.1/runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll
 /Users/colton/Documents/repos/netCoreGoodGame/netCoreGoodGameAPI/obj/Debug/netcoreapp3.1/netCoreGoodGameAPI.csproj.CopyComplete
+/Users/colton/Documents/repos/netCoreGoodGame/netCoreGoodGameAPI/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Authentication.JwtBearer.dll

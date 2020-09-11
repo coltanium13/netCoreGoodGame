@@ -6,6 +6,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using netCoreGoodGameAPI.Models;
+using Microsoft.AspNetCore.Authorization;    
+using System.IdentityModel.Tokens.Jwt;    
+using System.Security.Claims;    
+using System.Text;
+using Microsoft.Extensions.Configuration;    
+using Microsoft.IdentityModel.Tokens; 
 
 namespace netCoreGoodGameAPI.Controllers
 {
@@ -13,15 +19,34 @@ namespace netCoreGoodGameAPI.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private IConfiguration _config;
         private readonly GoodGameContext _context;
 
-        public AuthController(GoodGameContext context)
+        public AuthController(GoodGameContext context, IConfiguration config)
         {
             _context = context;
+            _config = config;
         }
+
+        [AllowAnonymous]    
+        [HttpPost]    
+        public IActionResult Login([FromBody]User login)    
+        {    
+            IActionResult response = Unauthorized();    
+            var user = AuthenticateUser(login);    
+    
+            if (user != null)    
+            {    
+                var tokenString = GenerateJSONWebToken(user);    
+                response = Ok(new { token = tokenString });    
+            }    
+    
+            return response;    
+        }    
 
         // GET: api/Users
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             //TODO: maybe change to auth
@@ -77,9 +102,12 @@ namespace netCoreGoodGameAPI.Controllers
         // POST: api/Users
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [AllowAnonymous] 
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        [Route("register")]
+        public async Task<ActionResult<User>> PostUser([FromBody]User user)
         {
+            //TODO: add package to encrypt/decrypt password (bcrypt?)
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
@@ -106,5 +134,35 @@ namespace netCoreGoodGameAPI.Controllers
         {
             return _context.Users.Any(e => e.Id == id);
         }
+
+        private string GenerateJSONWebToken(User userInfo)    
+        {    
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));    
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);    
+    
+            var token = new JwtSecurityToken(_config["Jwt:Issuer"],    
+              _config["Jwt:Issuer"],    
+              null,    
+              expires: DateTime.Now.AddMinutes(120),    
+              signingCredentials: credentials);    
+    
+            return new JwtSecurityTokenHandler().WriteToken(token);    
+        }    
+    
+        private User AuthenticateUser(User login)    
+        {    
+            User user = null;    
+    
+            user = _context.Users
+                .FirstOrDefault(u => u.UserName.ToLower() == login.UserName.ToLower());
+
+            if (user != null)    
+            {    
+                if(user.Password != login.Password){
+                    return null;
+                }
+            }    
+            return user;    
+        }    
     }
 }
