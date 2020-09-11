@@ -24,6 +24,7 @@ namespace netCoreGoodGameAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
+            //TODO: maybe change to auth
             return await _context.Users.ToListAsync();
         }
 
