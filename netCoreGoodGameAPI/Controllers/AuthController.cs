@@ -11,11 +11,11 @@ namespace netCoreGoodGameAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class AuthController : ControllerBase
     {
         private readonly GoodGameContext _context;
 
-        public UsersController(GoodGameContext context)
+        public AuthController(GoodGameContext context)
         {
             _context = context;
         }

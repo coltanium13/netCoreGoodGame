@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "5IBI513TNmfAl0gwjLHj7Y9/SZwwfTwkPRmpXOjSr8JZYUKxOise8WNuTNy0gCKkXbOnNITtkqoIz4LyYn8BOA==",
+  "dgSpecHash": "qqyjBFMCIKlQW0Y3Y7U98dfuwnRSDCUdaSmjaagVkhlV2bvans0bidV58qBzIP8HFMCBA5QLsexMdgB3MXpl4Q==",
   "success": true,
   "projectFilePath": "/Users/colton/Documents/repos/netCoreGoodGame/netCoreGoodGameAPI/netCoreGoodGameAPI.csproj",
   "expectedPackageFiles": [
+    "/Users/colton/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/3.1.8/microsoft.aspnetcore.authentication.jwtbearer.3.1.8.nupkg.sha512",
     "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.aspnetcore.html.abstractions/2.2.0/microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/microsoft.aspnetcore.razor/2.2.0/microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",
     "/Users/colton/.nuget/packages/microsoft.aspnetcore.razor.language/3.1.0/microsoft.aspnetcore.razor.language.3.1.0.nupkg.sha512",
