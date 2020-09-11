@@ -32,7 +32,7 @@ const App = () => {
     };
 
     console.log("In App.js UE");
-    getUser();
+    //getUser();
     // check for token in LS and load user
     if (localStorage.token) {
       setAuthToken(localStorage.token);

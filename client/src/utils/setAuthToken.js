@@ -1,12 +1,13 @@
-import api from './api';
+import api from "./api";
 
-const setAuthToken = token => {
+const setAuthToken = (token) => {
   if (token) {
-    api.defaults.headers.common['x-auth-token'] = token;
-    localStorage.setItem('token', token);
+    var bearerToken = `Bearer ${token}`;
+    api.defaults.headers.common["Authorization"] = bearerToken;
+    localStorage.setItem("token", bearerToken);
   } else {
-    delete api.defaults.headers.common['x-auth-token'];
-    localStorage.removeItem('token');
+    delete api.defaults.headers.common["Authorization"];
+    localStorage.removeItem("token");
   }
 };
 
